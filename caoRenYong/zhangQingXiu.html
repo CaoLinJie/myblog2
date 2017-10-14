@@ -52,6 +52,58 @@
 		$('.ydxz2').addClass("a-fadeins page2_10");
 	 }); 
  }); 
+
+		var url = window.location.href;
+		var imgUrl = "";    
+		function sendMessage(){        
+				//按钮一之------发送给好友        
+				WeixinJSBridge.on('menu:share:appmessage', function(argv){            
+					WeixinJSBridge.invoke('sendAppMessage',{             
+						"appid":"",                                     //appid 设置空就好了。            
+						"img_url":imgUrl,                                   //分享时所带的图片路径         
+						"img_width":"120",                              //图片宽度            
+						"img_height":"120",                             //图片高度            
+						"link":url,                  //分享附带链接地址            
+						"desc":"分享给好友描述",            //分享内容介绍 --这里会显示在预览里面。        
+						"title":"分享测试-好友"            
+					}, 
+					function(res){/*** 回调函数，最好设置为空 ***/                
+						aler("分享给好友");//没有效果            
+					}
+					);            
+			        setTimeout(function () {
+						alert("点击分享或转发后1.5秒后调用"); 
+					}, 1500);//点击分享或转发后1.5秒后调用        
+				});       
+				//按钮一之------发送到朋友圈        
+				WeixinJSBridge.on('menu:share:timeline', function(argv){                       
+					WeixinJSBridge.invoke('shareTimeline',{             
+						"appid":"",                         
+						//appid 设置空就好了。            
+			           "img_url":imgUrl,                                   //分享时所带的图片路径          
+					   "img_width":"120",                              //图片宽度            
+			           "img_height":"120",                             //图片高度            
+			           "link":url,                  //分享附带链接地址            
+			           "desc":"分享给朋友圈描述",   //分享内容介绍 --貌似不显示，没啥用。            
+			           "title":"分享测试-朋友圈"            
+					}, 
+				    function(res){/*** 回调函数，最好设置为空 ***/                
+				       aler("分享给朋友圈");//没有效果            
+					}
+					);             
+			        setTimeout(function () {
+						alert("点击分享或转发后1.5秒后调用"); 
+					}, 1500);//点击分享或转发后1.5秒后调用        
+				});        
+			    alert("调用成功！现在可以通过右上角按钮分享给朋友或者朋友圈！");            
+			};
+			//添加事件监听//文档的WeixinJSBridgeReady事件触发后绑定微信分享，否则会绑定失败
+			if(document.addEventListener){    
+				document.addEventListener('WeixinJSBridgeReady', sendMessage, false);
+			}else if(document.attachEvent){    
+				document.attachEvent('WeixinJSBridgeReady' , sendMessage);      
+				document.attachEvent('onWeixinJSBridgeReady' , sendMessage); 
+			}     
 </script>
 
 <div class="logo"><img src="img/logo.png"></div>
