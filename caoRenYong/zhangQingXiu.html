@@ -16,7 +16,10 @@
 </head>
 
 <body>
-
+<p><a href="javascript:void(0);" onclick="hideMenu()" id="hideRigUp">隐藏右上角三个点按钮。</a></p>    
+<p><a href="javascript:void(0);" onclick="showMenu()" id="showRigUp">显示右上角三个点按钮。</a></p>    
+<p><a href="javascript:void(0);" onclick="hideTool()" id="hideRigDown">隐藏右下面工具栏</a></p>    
+<p><a href="javascript:void(0);" onclick="showTool()" id="showRigDown">显示右下面工具栏</a></p>   
 <div class="video_exist play_yinfu" id="audio_btn" style="display: block;">
     <div id="yinfu" class="rotate"></div>
     <audio preload="" autoplay="" id="media" src="music.mp3" loop></audio>
@@ -66,10 +69,10 @@
 						"link":url,                  //分享附带链接地址            
 						"desc":"分享给好友描述",            //分享内容介绍 --这里会显示在预览里面。        
 						"title":"分享测试-好友"            
-					}, 
-					function(res){/*** 回调函数，最好设置为空 ***/                
-						aler("分享给好友");//没有效果            
-					}
+						}, 
+						function(res){/*** 回调函数，最好设置为空 ***/                
+							aler("分享给好友");//没有效果            
+						}
 					);            
 			        setTimeout(function () {
 						alert("点击分享或转发后1.5秒后调用"); 
@@ -86,10 +89,10 @@
 			           "link":url,                  //分享附带链接地址            
 			           "desc":"分享给朋友圈描述",   //分享内容介绍 --貌似不显示，没啥用。            
 			           "title":"分享测试-朋友圈"            
-					}, 
-				    function(res){/*** 回调函数，最好设置为空 ***/                
-				       aler("分享给朋友圈");//没有效果            
-					}
+						}, 
+						function(res){/*** 回调函数，最好设置为空 ***/                
+						   aler("分享给朋友圈");//没有效果            
+						}
 					);             
 			        setTimeout(function () {
 						alert("点击分享或转发后1.5秒后调用"); 
@@ -97,6 +100,31 @@
 				});        
 			    alert("调用成功！现在可以通过右上角按钮分享给朋友或者朋友圈2222！");            
 			};
+
+			//隐藏右上角三个点按钮。
+			function hideMenu(){    
+				if(window.WeixinJSBridge){       
+					WeixinJSBridge.call('hideOptionMenu');    
+				}    
+			} //显示右上角三个点按钮。
+			function showMenu(){    
+				if(window.WeixinJSBridge){        
+					WeixinJSBridge.call('showOptionMenu');    
+				}
+			} 
+			//隐藏右下面工具栏
+			function hideTool(){    
+				if(window.WeixinJSBridge){        
+					WeixinJSBridge.call('hideToolbar');    
+				}
+			} 
+			//显示右下面工具栏
+			function showTool(){    
+				if(window.WeixinJSBridge){        
+					WeixinJSBridge.call('showToolbar');    
+				}
+			}    
+
 			//添加事件监听//文档的WeixinJSBridgeReady事件触发后绑定微信分享，否则会绑定失败
 			if(document.addEventListener){    
 				document.addEventListener('WeixinJSBridgeReady', sendMessage, false);
